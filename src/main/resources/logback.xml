@@ -1,0 +1,33 @@
+<configuration>
+    <!-- 1. Консольный аппендер: куда и как мы будем выводить логи -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Формат вывода: Время | Поток | Уровень | Имя класса | Сообщение -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 2. Настройки для нашего собственного кода -->
+    <logger name="ui" level="INFO" />
+    <logger name="dao" level="INFO" />
+    <logger name="exception" level="INFO" />
+
+    <!-- 3. Настройки для Hibernate (Самое важное!) -->
+    <!-- Показываем сам SQL-запрос -->
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+
+    <!-- Показываем параметры, которые Hibernate подставляет вместо знаков '?' -->
+    <!-- В Hibernate 6.x это делается через этот конкретный пакет -->
+    <logger name="org.hibernate.orm.jdbc.bind" level="TRACE" />
+
+    <!-- 4. Убираем лишний шум -->
+    <!-- Скрываем внутренние информационные сообщения Hibernate и PostgreSQL,
+         оставляя только предупреждения (WARN) и ошибки (ERROR) -->
+    <logger name="org.hibernate" level="WARN" />
+    <logger name="org.postgresql" level="WARN" />
+
+    <!-- 5. Корневой логгер по умолчанию -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
