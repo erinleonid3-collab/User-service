@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
             try {
                 User user = session.get(User.class, id);
                 if (user != null) {
-                    session.remove(user); // В старых версиях Hibernate это называлось session.delete()
+                    session.remove(user);
                     transaction.commit();
                     System.out.println("Пользователь с ID " + id + " успешно удален.");
                 } else {
